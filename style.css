@@ -1,0 +1,41 @@
+.footer {
+    font-family: verdana;
+    text-align: center;
+    padding-top: 15px;
+    font-size: 17px;
+    opacity: 0.5;
+}
+
+h1 {
+    font-family: verdana;
+    text-align: center;
+    font-size: 60px;
+}
+
+.blue {
+    color: #0000FF;
+}
+
+.purple {
+    color: #AA00AA;
+}
+
+.orange {
+    color: #FF8C00;
+}
+
+.red {
+    color: #FF0000;
+}
+
+.green {
+    color: #008000;
+}
+
+.cyan-blue {
+    color: #03A89E;
+}
+
+.gray {
+    color: #808080;
+}
