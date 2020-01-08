@@ -2,3 +2,8 @@
 A project that can totally be replaced by CF-List.
 
 [demo](https://yojahuang.github.io/CF-Lookup-Table/)
+
+
+## TODO
+
+- Add sorting function
