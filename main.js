@@ -3,7 +3,8 @@ handles = Array.of("joylintp", "YoJaHuang", "emanlaicepsa", "WiwiHo",
 "ub33", "YJU", "LiPro", "HNO2", "ToMmyDong", "detaomega", "nella17",
 "2qbingxuan", "Seanliu", "casperwang", "wanling1212", "tim25871014",
 "SorahISA", "arctan", "PolarisChiba", "daniel071292", "erd1",
-"doublewang", "YenSean", "Kevin_Zhang-TW", "balbit", "coldEr66");
+"doublewang", "YenSean", "Kevin_Zhang-TW", "balbit", "coldEr66",
+"hg8398", "Nkl5RDZZZVq1N2F0");
 
 
 
