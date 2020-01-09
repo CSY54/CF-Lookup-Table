@@ -4,7 +4,8 @@ handles = Array.of("joylintp", "YoJaHuang", "emanlaicepsa", "WiwiHo",
 "2qbingxuan", "Seanliu", "casperwang", "wanling1212", "tim25871014",
 "SorahISA", "arctan", "PolarisChiba", "daniel071292", "erd1",
 "doublewang", "YenSean", "Kevin_Zhang-TW", "balbit", "coldEr66",
-"hg8398", "Nkl5RDZZZVq1N2F0", "Yayun146");
+"hg8398", "Nkl5RDZZZVq1N2F0", "Yayun146", "Ccucumber12",
+"CoolBANGstone", "ericxiao");
 
 
 
