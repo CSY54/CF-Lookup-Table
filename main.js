@@ -28,7 +28,7 @@ function ModifyTable(table) {
 
     for (let i = 0; i < table.result.length; ++i) {
         handle = table.result[i].handle; rating = table.result[i].rating;
-        str = `<div class="divTableRow" onclick="window.location.href='https://codeforces.com/profile/${table.result[i].handle}';">`;
+        str = `<div class="divTableRow" onclick="window.open('https://codeforces.com/profile/${table.result[i].handle}');">`;
 
         if (rating < 1200) color = "gray";
         else if(rating < 1400) color = "green";
