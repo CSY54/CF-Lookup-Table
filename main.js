@@ -39,7 +39,15 @@ function ModifyTable(table) {
         else if(rating < 2400) color = "orange";
         else color = "red";
 
-        shandle = `<div class="divTableCell"><span class="${color}">${handle}</span></div>`;
+        if (table.result[i].rank == "legendary grandmaster") shandle = `
+			<div class="divTableCell">
+				<span class="red">
+					<span class="black">${handle.substr(0, 1)}</span>${handle.substr(1)}
+				</span>
+			</div>
+			`;
+		else shandle = `<div class="divTableCell"><span class="${color}">${handle}</span></div>`;
+		
         srating = `<div class="divTableCell">${rating}</div>`;
         str = str + shandle + srating + '</div>';
 
