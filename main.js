@@ -1,57 +1,88 @@
-url = "https://codeforces.com/api/user.info?handles=";
-handles = Array.of("joylintp", "YoJaHuang", "emanlaicepsa", "WiwiHo",
-"ub33", "YJU", "LiPro", "HNO2", "ToMmyDong", "detaomega", "nella17",
-"2qbingxuan", "Seanliu", "casperwang", "wanling1212", "tim25871014",
-"SorahISA", "arctan", "PolarisChiba", "daniel071292", "erd1",
-"doublewang", "YenSean", "Kevin_Zhang-TW", "balbit", "coldEr66",
-"hg8398", "Nkl5RDZZZVq1N2F0", "Yayun146", "Ccucumber12",
-"CoolBANGstone", "ericxiao");
+const handles = [
+  'joylintp', 'YoJaHuang', 'emanlaicepsa', 'WiwiHo', 'ub33',
+  'YJU', 'LiPro', 'HNO2', 'ToMmyDong', 'detaomega',
+  'nella17', '2qbingxuan', 'Seanliu', 'casperwang', 'wanling1212',
+  'tim25871014', 'SorahISA', 'arctan', 'PolarisChiba', 'daniel071292',
+  'erd1', 'doublewang', 'YenSean', 'Kevin_Zhang-TW', 'balbit',
+  'coldEr66', 'hg8398', 'Nkl5RDZZZVq1N2F0', 'Yayun146', 'Ccucumber12',
+  'CoolBANGstone', 'ericxiao',
+];
 
+const ratingColor = [
+  {rating: 0, color: 'black'},
+  {rating: 1200, color: 'gray'},
+  {rating: 1400, color: 'green'},
+  {rating: 1600, color: 'cyan-blue'},
+  {rating: 1900, color: 'blue'},
+  {rating: 2100, color: 'purple'},
+  {rating: 2400, color: 'orange'},
+  {rating: 3000, color: 'red'},
+  {rating: 10000, color: 'red-black'},
+];
 
+let desc = true;
 
-function getData() {
-    var req = new XMLHttpRequest();
-    for (let i = 0; i < handles.length; ++i) {
-        url = url + handles[i] + ";";
-    }
-    req.open("GET", url);
-    req.onload =function() {
-        var res = JSON.parse(this.responseText);
-        ModifyTable(res);
-    }
-    req.send();
+const data = [];
+
+async function getData() {
+  await fetch(encodeURI(`https://codeforces.com/api/user.info?handles=${handles.join(';')}`), {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+    },
+  })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status !== 'OK') {
+          throw new Error('error');
+        }
+
+        res.result.forEach((user) => {
+          data.push({
+            handle: user.handle,
+            rating: user.rating || 0,
+          });
+        });
+      });
 }
 
-function ModifyTable(table) {
-    var str, shandle, srating, color;
-    var handle, rating;
-    var tmp;
-
-    for (let i = 0; i < table.result.length; ++i) {
-        handle = table.result[i].handle; rating = table.result[i].rating;
-        str = `<div class="divTableRow" onclick="window.open('https://codeforces.com/profile/${table.result[i].handle}');">`;
-
-        if (rating < 1200) color = "gray";
-        else if(rating < 1400) color = "green";
-        else if(rating < 1600) color = "cyan-blue";
-        else if(rating < 1900) color = "blue";
-        else if(rating < 2100) color = "purple";
-        else if(rating < 2400) color = "orange";
-        else color = "red";
-
-        if (table.result[i].rank == "legendary grandmaster") shandle = `
-			<div class="divTableCell">
-				<span class="red">
-					<span class="black">${handle.substr(0, 1)}</span>${handle.substr(1)}
-				</span>
-			</div>
-			`;
-		else shandle = `<div class="divTableCell"><span class="${color}">${handle}</span></div>`;
-		
-        srating = `<div class="divTableCell">${rating}</div>`;
-        str = str + shandle + srating + '</div>';
-
-        tmp = document.getElementById("tablebody");
-        tmp.innerHTML = tmp.innerHTML + str;
+function getColor(rating) {
+  for (const rc of ratingColor) {
+    if (rating <= rc.rating) {
+      return rc.color;
     }
+  }
+  return 'black';
+}
+
+function updateTable(desc = true) {
+  data.sort((lhs, rhs) => {
+    return lhs.rating < rhs.rating ^ desc;
+  });
+
+  let inner = '';
+  for (const res of data) {
+    inner += `<div class="divTableRow" onclick="window.open('https://codeforces.com/profile/${res.handle}');">
+  <div class="divTableCell">
+    <span class="handle ${getColor(res.rating || -1)}">${res.handle}</span>
+  </div>
+  <div class="divTableCell">${res.rating || 0}</div>
+</div>`;
+  }
+  document.getElementById('tablebody').innerHTML = inner;
+}
+
+function toggleSort() {
+  desc = !desc;
+  if (desc) {
+    document.getElementById('icon').innerHTML = `<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M7,10L12,15L17,10H7Z"></svg>`
+  } else {
+    document.getElementById('icon').innerHTML = `<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M7,15L12,10L17,15H7Z"></svg>`;
+  }
+  updateTable(desc);
+}
+
+async function main() {
+  await getData();
+  toggleSort();
 }
