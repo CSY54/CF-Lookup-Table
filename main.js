@@ -22,7 +22,7 @@ const ratingColor = [
 
 let desc = true;
 
-const data = [];
+let data = [];
 
 async function getData() {
   await fetch(encodeURI(`https://codeforces.com/api/user.info?handles=${handles.join(';')}`), {
@@ -57,7 +57,7 @@ function getColor(rating) {
 
 function updateTable(desc = true) {
   data.sort((lhs, rhs) => {
-    return lhs.rating < rhs.rating ^ desc;
+    return (lhs.rating - rhs.rating) ^ (desc ? 1 : -1);
   });
 
   let inner = '';
