@@ -57,7 +57,7 @@ function getColor(rating) {
 
 function updateTable(desc = true) {
   data.sort((lhs, rhs) => {
-    return (lhs.rating - rhs.rating) ^ (desc ? 1 : -1);
+    return (lhs.rating - rhs.rating) * (desc ? 1 : -1);
   });
 
   let inner = '';
